@@ -99,16 +99,20 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
         }
     }
     
-    
-    // MARK -- ToDo
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath == firstLabelCellIndexPath && isSecondPickerVisible == false {
+            // first label selected, second picker is not visible
+            // toggle first picker
             isFirstPickerVisible.toggle()
         } else if indexPath == secondLabelCellIndexPath && isFirstPickerVisible == false {
+            // second label selected, first picker is not visible
+            // toggle second picker
             isSecondPickerVisible.toggle()
         } else if indexPath == firstLabelCellIndexPath || indexPath == secondLabelCellIndexPath {
+            // either label was selected, previous conditions failed meaning at least one picker is visible
+            // toggle both pickers
             isFirstPickerVisible.toggle()
             isSecondPickerVisible.toggle()
         } else {
@@ -116,9 +120,9 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
         }
         
         tableView.reloadData()
-//        tableView.beginUpdates()
-//        tableView.endUpdates()
     }
+
+
     
 }
 

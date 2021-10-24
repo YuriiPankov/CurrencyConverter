@@ -10,10 +10,12 @@ import UIKit
 
 class CurrencyController {
     
+    // Error for absent internet connection
     enum AnswerControllerError: Error, LocalizedError {
     case absentInternetConnection
     }
     
+    // Fetches currencies from NBU with current date
     func fetchCurrencyRates(completion: @escaping (Result<[Currency], Error>) -> Void) {
         let urlComponents = URLComponents(string: "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json")!
         URLSession.shared.dataTask(with: urlComponents.url!) { data, response, error in
@@ -41,6 +43,7 @@ class CurrencyController {
         }.resume()
     }
     
+    // Returns array of currencies with specified currency code
     func specificCurrenciesArray(of currencyCodes: [Int], from currencies: [Currency]) -> [Currency] {
         let selectedCurrencies = currencyCodes.map { (currencyCode)  in
             return currencies.first(where: {$0.code == currencyCode})!

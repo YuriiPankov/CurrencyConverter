@@ -37,7 +37,8 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
 
         let currenciesArrayItem = currenciesArray[indexPath.row]
         cell.shortDescription.text = currenciesArrayItem.shortendDescription
-        cell.rate.text = String(describing: currenciesArrayItem.rate)
+        // Decimal format according to Mockup
+        cell.rate.text = String(format: "%.1f", currenciesArrayItem.rate)
 
         return cell
     }

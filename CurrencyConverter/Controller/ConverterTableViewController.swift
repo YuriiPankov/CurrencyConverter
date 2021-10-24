@@ -47,6 +47,7 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
         initialUpdateUI()
     }
 
+    // In case of invalid text field data input - default appearance is empty field
     @IBAction func firstTextFieldIsChanged(_ sender: Any) {
         secondTextField.text = converterController.convert(baseCurrency: firstPickedCurrency, outputCurrency: secondPickedCurrency, baseCurrencyAmount: firstTextField.text ?? "")
     }
@@ -64,7 +65,7 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
     
     
     
-    
+    // MARK: - Picker view
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -87,7 +88,7 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
         }
     }
     
-    
+    // MARK: - Table view
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath {
         case firstPickerCellIndexPath where isFirstPickerVisible == false:
@@ -98,6 +99,7 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
             return UITableView.automaticDimension
         }
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

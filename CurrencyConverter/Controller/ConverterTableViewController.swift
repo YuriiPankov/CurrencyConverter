@@ -7,11 +7,10 @@
 
 import UIKit
 
-class ConverterTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ConverterTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate, ConverterControllerProtocol {
     
     var currenciesArray = [Currency]()
     var updatedCurrenciesArray = [Currency]()
-    let converterController = ConverterController()
     var firstPickedCurrency = Currency(code: 0, rate: 1, shortendDescription: "")
     var secondPickedCurrency = Currency(code: 0, rate: 1, shortendDescription: "")
     
@@ -43,16 +42,16 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        updatedCurrenciesArray = converterController.updateCurrenciesArray(from: currenciesArray)
+        updatedCurrenciesArray = updateCurrenciesArray(from: currenciesArray)
         initialUpdateUI()
     }
 
     // In case of invalid text field data input - default appearance is empty field
     @IBAction func firstTextFieldIsChanged(_ sender: Any) {
-        secondTextField.text = converterController.convert(baseCurrency: firstPickedCurrency, outputCurrency: secondPickedCurrency, baseCurrencyAmount: firstTextField.text ?? "")
+        secondTextField.text = convert(baseCurrency: firstPickedCurrency, outputCurrency: secondPickedCurrency, baseCurrencyAmount: firstTextField.text ?? "")
     }
     @IBAction func secondTextFieldIsChanged(_ sender: Any) {
-        firstTextField.text = converterController.convert(baseCurrency: secondPickedCurrency, outputCurrency: firstPickedCurrency, baseCurrencyAmount: secondTextField.text ?? "")
+        firstTextField.text = convert(baseCurrency: secondPickedCurrency, outputCurrency: firstPickedCurrency, baseCurrencyAmount: secondTextField.text ?? "")
     }
     
  
@@ -128,4 +127,12 @@ class ConverterTableViewController: UITableViewController, UIPickerViewDataSourc
     
 }
 
-
+extension ConverterTableViewController{
+    
+    func initialUpdateUI() {
+        firstPickedCurrency = updatedCurrenciesArray[0]
+        secondPickedCurrency = updatedCurrenciesArray[1]
+        firstLabel.text = firstPickedCurrency.shortendDescription
+        secondLabel.text = secondPickedCurrency.shortendDescription
+    }
+}

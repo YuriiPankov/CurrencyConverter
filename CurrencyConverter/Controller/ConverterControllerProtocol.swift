@@ -1,14 +1,20 @@
 //
-//  ConverterController.swift
+//  ConverterControllerProtocol.swift
 //  CurrencyConverter
 //
-//  Created by Yurii on 22.10.2021.
+//  Created by Yurii on 06.11.2021.
 //
 
-import Foundation
 import UIKit
 
-class ConverterController{
+protocol ConverterControllerProtocol {
+    
+    func updateCurrenciesArray(from currenciesArray: [Currency]) -> [Currency]
+    
+    func convert(baseCurrency: Currency, outputCurrency: Currency, baseCurrencyAmount: String) -> String
+}
+
+extension ConverterControllerProtocol {
     
     // This method sorts array of currencies in alphabetical order of shortend desxriptions and adds Hryvnia currency to array
     // Final currencies order is shown according to Mockup
@@ -37,15 +43,5 @@ class ConverterController{
         
         return outputAmount
     }
-}
-
-
-extension ConverterTableViewController{
     
-    func initialUpdateUI() {
-        firstPickedCurrency = updatedCurrenciesArray[0]
-        secondPickedCurrency = updatedCurrenciesArray[1]
-        firstLabel.text = firstPickedCurrency.shortendDescription
-        secondLabel.text = secondPickedCurrency.shortendDescription
-    }
 }
